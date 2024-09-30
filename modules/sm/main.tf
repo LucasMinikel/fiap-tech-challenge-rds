@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "db_secrets" {
-  name = "db_secrets"
+  name = "db_secrets_rds_mysql"
   recovery_window_in_days = 0 
   force_overwrite_replica_secret = true
 }
