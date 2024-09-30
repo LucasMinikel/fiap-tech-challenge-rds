@@ -1,0 +1,37 @@
+name: Destruir infraestrutura
+
+on:
+    workflow_dispatch:
+
+env:
+  AWS_REGION: sa-east-1
+  CLUSTER_NAME: tech-challenge-cluster
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v2
+
+      - name: Configurar AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+
+      - name: Inicializar Terraform
+        run: terraform init -upgrade
+   
+      - name: Inicializar Plano
+        run: terraform plan
+          
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -input=false
