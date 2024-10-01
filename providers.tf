@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "minikel-rds-tfstate"
+    bucket = "teste-minikel-rds-tfstate"
     key    = "global/s3/terraform.tfstate"
     region = "sa-east-1"
   }
